@@ -6,7 +6,9 @@ from bs4 import BeautifulSoup
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 
-BOT_TOKEN = "8506013126:AAFO9eqaUhFH17IFl4w4tZXDXsAU8zKwiWU"
+BOT_TOKEN = import os
+BOT_TOKEN = os.environ.get("BOT_TOKEN")
+
 DB_PATH = "bot_db.json"
 UA = {"User-Agent": "Mozilla/5.0"}
 
@@ -71,3 +73,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
