@@ -5,6 +5,8 @@ from bs4 import BeautifulSoup
 
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
+import asyncio
+
 
 BOT_TOKEN = os.environ.get("BOT_TOKEN")
 
@@ -64,13 +66,24 @@ async def today(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(msg)
 
 def main():
+    if not BOT_TOKEN:
+        raise RuntimeError("BOT_TOKEN 환경변수가 비어 있어요. Render Environment Variables를 확인해 주세요.")
+
     app = ApplicationBuilder().token(BOT_TOKEN).build()
+
+    # /start, /today 핸들러 연결 (너 코드에 있는 함수 이름이 start, today 라고 가정)
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("today", today))
-    print("🤖 봇 실행 중... 텔레그램에서 /today 해봐!")
-    app.run_polling()
+
+    print("🤖 봇 실행 중...")
+
+    # v20+에서는 run_polling()을 쓰는 게 정석
+    app.run_polling(allowed_updates=Update.ALL_TYPES)
+
 
 if __name__ == "__main__":
     main()
+
+
 
 
