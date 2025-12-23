@@ -6,7 +6,6 @@ from bs4 import BeautifulSoup
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 
-BOT_TOKEN = import os
 BOT_TOKEN = os.environ.get("BOT_TOKEN")
 
 DB_PATH = "bot_db.json"
@@ -73,4 +72,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
